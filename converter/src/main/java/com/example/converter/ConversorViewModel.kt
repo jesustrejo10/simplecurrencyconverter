@@ -69,17 +69,82 @@ class ConversorViewModel : ViewModel() {
 
     fun successRetrievedCurrencies(data: List<Cripto>?) {
 
+        /**
+         * First we're checking how many usd dollars we need to get one of the other currencies.
+         * for instance, we need 9500 usd to get 1 BTC.
+         */
         btc = data?.find { it.symbol == Currency.BTC.name }?.quote?.currency?.priceAgainstUsd ?: 9500f
         eth = data?.find { it.symbol == Currency.ETH.name }?.quote?.currency?.priceAgainstUsd ?: 234.8856f
+        ptr = 60f
+        eur = 1.141f
+        bs = 0.00001f
+        usd = 1f
 
+        // Now according what the user set on the screen, we calculate how much is that in USD
         val currentFloatValToReport = convertInputToUsd()
 
+        // After that, we do the conversion from what we know that the user set on the screen
+        //(in usd) to the other currencies.
         val valInBtc = currentFloatValToReport / btc
         val valInEth= currentFloatValToReport / eth
         val valInPtr = currentFloatValToReport / ptr
         val valInEur = currentFloatValToReport / eur
         val valInBs = currentFloatValToReport / bs
         val valInUsd = currentFloatValToReport / usd
+
+        /**
+         * now I convert the exchange rate that I received from the api to the expected
+         * exchange rate according to the currency set by the user before on the screen.
+         */
+        when(currentCurrency){
+            Currency.USD->{
+
+            }
+            Currency.EUR ->{
+
+                btc /= eur
+                eth /= eur
+                ptr /= eur
+                bs /= eur
+                usd /= eur
+                eur = 1f
+
+            }
+            Currency.BS -> {
+                btc /= bs
+                eth /= bs
+                ptr /= bs
+                eur /= bs
+                usd /= bs
+                bs /= bs
+
+            }
+            Currency.BTC ->{
+                eth /= btc
+                ptr /= btc
+                eur /= btc
+                usd /= btc
+                bs /= btc
+                btc /= btc
+            }
+            Currency.ETH -> {
+                ptr /= eth
+                eur /= eth
+                usd /= eth
+                bs /= eth
+                btc /= eth
+                eth /= eth
+            }
+            Currency.PTR -> {
+                eur /= ptr
+                usd /= ptr
+                bs /= ptr
+                btc /= ptr
+                eth /= ptr
+                ptr /= ptr
+            }
+        }
+
 
         val dataToReport = ReportData(
             initialValue = currentFloatVal.toString(),
@@ -103,13 +168,15 @@ class ConversorViewModel : ViewModel() {
 
     private fun convertInputToUsd(): Float {
 
-        currentFloatVal *= when(currentCurrency){
+
+
+        val currentFloatVal = when(currentCurrency){
             Currency.USD-> return currentFloatVal
-            Currency.EUR -> usd
-            Currency.BS -> usd
-            Currency.BTC -> btc
-            Currency.ETH -> eth
-            Currency.PTR -> ptr
+            Currency.EUR -> { currentFloatVal * eur }
+            Currency.BS -> { currentFloatVal * bs }
+            Currency.BTC -> btc*currentFloatVal
+            Currency.ETH -> eth*currentFloatVal
+            Currency.PTR -> ptr*currentFloatVal
         }
 
         return currentFloatVal

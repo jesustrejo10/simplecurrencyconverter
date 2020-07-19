@@ -79,15 +79,20 @@ class ConversorFragment : Fragment(), AdapterView.OnItemClickListener,
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if(dialog.isVisible)
+            dialog.dismiss()
+    }
+
     private fun manageAPIResponse(it: Resource<List<Cripto>>?) {
         when(it?.status){
             Status.SUCCESS ->{
-                context?.let {context ->
-                    viewModel.successRetrievedCurrencies(it.data)
-
-                }
                 if(dialog.isVisible)
                     dialog.dismiss()
+                context?.let {context ->
+                    viewModel.successRetrievedCurrencies(it.data)
+                }
             }
             Status.ERROR -> {
                 if(dialog.isVisible)

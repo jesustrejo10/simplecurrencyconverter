@@ -14,7 +14,8 @@ class PreferenceManager(private val context: Context) {
     }
 
     fun checkIfUserAlreadyLoggedIn(): Boolean {
-        return !preferenceManager.getString(USER_TOKEN,"").isNullOrEmpty()
+        return false
+        //return !preferenceManager.getString(USER_TOKEN,"").isNullOrEmpty()
     }
 
     fun saveToken(token: String) {

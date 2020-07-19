@@ -4,18 +4,22 @@ import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.example.core.data.Resource
 import com.example.core.storage.PreferenceManager
 import com.example.login.data.LoginApiHelper
 import com.example.login.data.RetrofitLoginBuilder
 import com.example.login.data.ServerLoginResponseModel
 import com.example.login.data.UserServerModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.*
 
 class LoginViewModel : ViewModel() {
 
     val uiStatusManager = MutableLiveData<UIValidator>()
     val operationResultManager = MutableLiveData<OperationResult>()
+    lateinit var preferenceManager: PreferenceManager
+    val scope = CoroutineScope(Dispatchers.IO)
+
 
     fun verifyScreen(email: String, password: String) {
         val validEmail =  !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
@@ -35,7 +39,8 @@ class LoginViewModel : ViewModel() {
             val hardCodedEmail = "eve.holt@reqres.in"
             val hardCodedPassword = "cityslicka"
             val serverUserModel = UserServerModel(hardCodedEmail,hardCodedPassword)
-            operationResultManager.postValue(OperationResult(OperationResultStatus.LOGIN_REQUESTED,serverUserModel))
+            tryLogin(serverUserModel)
+            operationResultManager.postValue(OperationResult(OperationResultStatus.LOGIN_REQUESTED,null))
         }
 
     }
@@ -43,23 +48,29 @@ class LoginViewModel : ViewModel() {
 
 
 
-    fun login(serverUserModel: UserServerModel) = liveData(Dispatchers.IO) {
-
-        emit(Resource.loading(data = null))
-        try {
-            val apiResponse = LoginApiHelper(RetrofitLoginBuilder.apiService).login(serverUserModel)
-            emit(Resource.success(data =apiResponse ))
-        } catch (exception: Exception) {
-            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
-        }
-    }
-
-    fun successLogin(data: ServerLoginResponseModel?, preferenceManager: PreferenceManager) {
+    fun successLogin(data: ServerLoginResponseModel?) {
         if(data?.token.isNullOrEmpty())
             return
-
         preferenceManager.saveToken(data?.token!!)
-        operationResultManager.postValue(OperationResult(OperationResultStatus.LOGIN_SUCCESS,data.token))
+
+        operationResultManager.postValue(OperationResult(OperationResultStatus.LOGIN_SUCCESS,null))
+    }
+
+    fun tryLogin(p0: UserServerModel) {
+
+        viewModelScope.launch {
+
+            try {
+                val call1 = async { LoginApiHelper(RetrofitLoginBuilder.apiService).login(p0 )}
+                val apiResponse = call1.await()
+                successLogin(apiResponse)
+
+            } catch (exception: Exception) {
+                println("")
+                operationResultManager.postValue(OperationResult(OperationResultStatus.LOGIN_ERROR,exception.message))
+
+            }
+        }
     }
 
 
@@ -68,7 +79,7 @@ class LoginViewModel : ViewModel() {
     }
 
     enum class OperationResultStatus {
-        LOGIN_REQUESTED,LOGIN_SUCCESS
+        LOGIN_REQUESTED,LOGIN_SUCCESS, LOGIN_ERROR
     }
 
     data class OperationResult(val status : OperationResultStatus, val any : Any? )

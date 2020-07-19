@@ -2,9 +2,20 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/application_navigator"
-    app:startDestination="@id/login_fragment">
+    app:startDestination="@id/blank_fragment">
 
 
+    <fragment
+        android:id="@+id/blank_fragment"
+        android:name="com.example.simplecurrencyconverter.contracts.BlankFragment"
+        android:label="@string/blank_fragment">
+        <action
+            android:id="@+id/action_blank_fragment_to_login_fragment"
+            app:destination="@id/login_fragment" />
+        <action
+            android:id="@+id/action_blank_fragment_to_conversor_fragment"
+            app:destination="@id/conversor_fragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/login_fragment"
