@@ -1,13 +1,402 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="24dp"
+    android:orientation="vertical"
     tools:context=".data.model.ui.FragmentResultOperation">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/success"
+        android:layout_gravity="center_horizontal"
+        android:textSize="16sp"
+        android:textColor="@color/black"/>
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/originalValueLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/entered_value"
+            android:textSize="16sp"/>
+
+
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_gravity="end"
+            android:id="@+id/originalValueUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="USD"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_gravity="end"
+            android:id="@+id/originalValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="24"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@color/blue_selected"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/usdValueLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/usd_entered_value"
+            android:textSize="16sp"/>
+
+
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_gravity="end"
+            android:id="@+id/usdValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="24"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/usdExchangeRateValueLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/usd_exchange_rate_value"
+            android:textSize="16sp"/>
+
+
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_gravity="end"
+            android:id="@+id/usdExchangeRateValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="24"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@color/blue_selected"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/eurValueLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/eur_entered_value"
+            android:textSize="16sp"/>
+
+
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_gravity="end"
+            android:id="@+id/eurValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="24"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/eurExchangeRateValueLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/usd_exchange_rate_value"
+            android:textSize="16sp"/>
+
+
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_gravity="end"
+            android:id="@+id/eurExchangeRateValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="24"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@color/blue_selected"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/bsValueLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bs_entered_value"
+            android:textSize="16sp"/>
+
+
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_gravity="end"
+            android:id="@+id/bsValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="24"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/bsExchangeRateValueLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/usd_exchange_rate_value"
+            android:textSize="16sp"/>
+
+
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_gravity="end"
+            android:id="@+id/bsExchangeRateValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="24"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@color/blue_selected"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/btcValueLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btc_entered_value"
+            android:textSize="16sp"/>
+
+
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_gravity="end"
+            android:id="@+id/btcValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="24"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/btcExchangeRateValueLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/usd_exchange_rate_value"
+            android:textSize="16sp"/>
+
+
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_gravity="end"
+            android:id="@+id/btcExchangeRateValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="24"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@color/blue_selected"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/ethValueLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/eth_entered_value"
+            android:textSize="16sp"/>
+
+
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_gravity="end"
+            android:id="@+id/ethValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="24"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/ethExchangeRateValueLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/usd_exchange_rate_value"
+            android:textSize="16sp"/>
+
+
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_gravity="end"
+            android:id="@+id/ethExchangeRateValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="24"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@color/blue_selected"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/ptrValueLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ptr_entered_value"
+            android:textSize="16sp"/>
+
+
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_gravity="end"
+            android:id="@+id/ptrValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="24"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/ptrExchangeRateValueLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/usd_exchange_rate_value"
+            android:textSize="16sp"/>
+
+
+        <TextView
+            android:layout_marginStart="16dp"
+            android:layout_gravity="end"
+            android:id="@+id/ptrExchangeRateValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="24"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+</LinearLayout>

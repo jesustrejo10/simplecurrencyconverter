@@ -5,6 +5,17 @@
     <string name="convert">Convert</string>
     <string name="empty_status">This field is required.</string>
     <string name="wrong_value">The entered value isn\'t supported by the system.</string>
+    <string name="success">Thank you for use Simple currency converter.</string>
+    <string name="entered_value">Entered value:</string>
+    <string name="usd_entered_value">The equivalent in USD is:</string>
+    <string name="usd_exchange_rate_value">The exchange rate used was</string>
+
+    <string name="eur_entered_value">The equivalent in EUR is:</string>
+    <string name="bs_entered_value">The equivalent in Bs is:</string>
+    <string name="btc_entered_value">The equivalent in BTC is:</string>
+    <string name="eth_entered_value">The equivalent in ETH is:</string>
+    <string name="ptr_entered_value">The equivalent in PTR is:</string>
+    <string name="exchange_rate_value">The exchange rate used was</string>
 
     <string-array name="supported_currencies">
         <item>United stated dollar (USD)</item>
