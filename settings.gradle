@@ -1,3 +1,4 @@
 rootProject.name='SimpleCurrencyConverter'
 include ':app'
 include ':core'
+include ':login'
