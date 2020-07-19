@@ -3,4 +3,7 @@
     <string name="email">Email:</string>
     <string name="password">Password</string>
     <string name="next">Next</string>
+    <string name="wrong_email_address">Email address isn\'t correct, please verify and try it again</string>
+    <string name="empty_password">Your passsword is empty. please fill this field and try it again.</string>
+    <string name="wrong_password">Your password lenght isn\'t correct. The minimal lenght required is 4 characters</string>
 </resources>
