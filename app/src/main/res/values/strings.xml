@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SimpleCurrencyConverter</string>
+    <string name="login_fragment">login_fragment</string>
 </resources>
