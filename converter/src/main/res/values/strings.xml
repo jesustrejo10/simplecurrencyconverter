@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="select_the_currency_to_convert">Select the currency to convert</string>
+    <string name="type_ammount">Type the ammount that you want to convert.</string>
+    <string name="convert">Convert</string>
+
+    <string-array name="supported_currencies">
+        <item>United stated dollar (USD)</item>
+        <item>Euro</item>
+        <item>Bolivar</item>
+        <item>Bitcoin</item>
+        <item>Etherium</item>
+        <item>Petro</item>
+    </string-array>
+</resources>
