@@ -12,8 +12,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.converter.data.model.Cripto
 import com.example.core.common.LoadingDialogFragment
+import com.example.core.common.navigation.NavigationContract
 import com.example.core.data.Resource
 import com.example.core.data.Status
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.conversor_fragment.*
 
 
@@ -45,6 +47,13 @@ class ConversorFragment : Fragment(), AdapterView.OnItemClickListener,
 
         viewModel.uiStateManager.observe(viewLifecycleOwner, Observer {
             manageUIStatus(it)
+        })
+        viewModel.operationResponse.observe(viewLifecycleOwner, Observer {
+            val bundle = Bundle()
+            val gson = Gson()
+            bundle.putString("KEY_RESPONSE",gson.toJson(it))
+            (activity as? NavigationContract)?.navigateTo(2,bundle)
+
         })
     }
 

@@ -20,6 +20,15 @@
         android:id="@+id/conversor_fragment"
         android:name="com.example.converter.ConversorFragment"
         android:label="@string/conversor_fragment">
+        <action
+            android:id="@+id/action_conversor_fragment_to_result_operation_fragment"
+            app:destination="@id/result_operation_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/result_operation_fragment"
+        android:name="com.example.converter.data.model.ui.FragmentResultOperation"
+        android:label="@string/result_operation">
     </fragment>
 
 

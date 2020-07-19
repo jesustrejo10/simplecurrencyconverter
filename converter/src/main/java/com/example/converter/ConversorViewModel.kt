@@ -6,6 +6,7 @@ import androidx.lifecycle.liveData
 import com.example.converter.data.CurrencyHelper
 import com.example.converter.data.RetrofitCurrencyBuilder
 import com.example.converter.data.model.Cripto
+import com.example.converter.data.model.ReportData
 import com.example.core.data.Resource
 import kotlinx.coroutines.Dispatchers
 
@@ -14,7 +15,7 @@ class ConversorViewModel : ViewModel() {
     var currentCurrency = Currency.USD
     var currentFloatVal = 0f
     var uiStateManager = MutableLiveData<UIState>()
-
+    val operationResponse = MutableLiveData<ReportData>()
     var btc =  9500f
     var eth =  234.8856f
     var ptr = 60f
@@ -71,18 +72,33 @@ class ConversorViewModel : ViewModel() {
         btc = data?.find { it.symbol == Currency.BTC.name }?.quote?.currency?.priceAgainstUsd ?: 9500f
         eth = data?.find { it.symbol == Currency.ETH.name }?.quote?.currency?.priceAgainstUsd ?: 234.8856f
 
+        val currentFloatValToReport = convertInputToUsd()
 
-        currentFloatVal = convertInputToUsd()
+        val valInBtc = currentFloatValToReport / btc
+        val valInEth= currentFloatValToReport / eth
+        val valInPtr = currentFloatValToReport / ptr
+        val valInEur = currentFloatValToReport / eur
+        val valInBs = currentFloatValToReport / bs
+        val valInUsd = currentFloatValToReport / usd
 
-        val valInBtc = currentFloatVal / btc
-        val valInEth= currentFloatVal / eth
-        val valInPtr = currentFloatVal / ptr
-        val valInEur = currentFloatVal / eur
-        val valInBs = currentFloatVal / bs
-        val valInUsd = currentFloatVal / usd
+        val dataToReport = ReportData(
+            initialValue = currentFloatVal.toString(),
+            initialCurrency = currentCurrency.name,
+            valueInUsd = valInUsd.toString(),
+            exchangeRateInUsd =  usd.toString(),
+            valueInEur = valInEur.toString(),
+            exchangeRateInEur = eur.toString(),
+            valueInBs =  valInBs.toString(),
+            exchangeRateInBs = bs.toString(),
+            valueInBtc = valInBtc.toString(),
+            exchangeRateInBtc = btc.toString(),
+            valueInEth = valInEth.toString(),
+            exchangeRateInEth = eth.toString(),
+            valueInPtr = valInPtr.toString(),
+            exchangeRateInPtr = ptr.toString()
+            )
 
-        println("")
-
+        operationResponse.postValue(dataToReport)
     }
 
     private fun convertInputToUsd(): Float {

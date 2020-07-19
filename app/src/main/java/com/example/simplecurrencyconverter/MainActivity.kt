@@ -29,10 +29,8 @@ class MainActivity : AppCompatActivity(), NavigationContract {
 
     override fun navigateTo(destination: Int, data: Bundle) {
         when(destination){
-            1->{
-                navController.navigate(R.id.action_login_fragment_to_conversor_fragment,data)
-
-            }
+            1-> navController.navigate(R.id.action_login_fragment_to_conversor_fragment,data)
+            2-> navController.navigate(R.id.action_conversor_fragment_to_result_operation_fragment,data)
         }
     }
 
