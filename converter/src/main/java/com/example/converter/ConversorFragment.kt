@@ -49,10 +49,15 @@ class ConversorFragment : Fragment(), AdapterView.OnItemClickListener,
             manageUIStatus(it)
         })
         viewModel.operationResponse.observe(viewLifecycleOwner, Observer {
-            val bundle = Bundle()
-            val gson = Gson()
-            bundle.putString("KEY_RESPONSE",gson.toJson(it))
-            (activity as? NavigationContract)?.navigateTo(2,bundle)
+
+            if(!cache)
+            {
+                val bundle = Bundle()
+                val gson = Gson()
+                bundle.putString("KEY_RESPONSE",gson.toJson(it.data))
+                (activity as? NavigationContract)?.navigateTo(2,bundle)
+                cache = true
+            }
 
         })
     }
@@ -121,8 +126,12 @@ class ConversorFragment : Fragment(), AdapterView.OnItemClickListener,
     override fun onClick(v: View?) {
         v?: return
         if(v.id == R.id.convert_action){
+            cache = false
             viewModel.verifyUi(currencyValue.text.toString())
         }
+    }
+    companion object{
+        var cache = false
     }
 
 }

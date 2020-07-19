@@ -15,7 +15,7 @@ class ConversorViewModel : ViewModel() {
     var currentCurrency = Currency.USD
     var currentFloatVal = 0f
     var uiStateManager = MutableLiveData<UIState>()
-    val operationResponse = MutableLiveData<ReportData>()
+    val operationResponse = MutableLiveData<Result>()
     var btc =  9500f
     var eth =  234.8856f
     var ptr = 60f
@@ -163,7 +163,7 @@ class ConversorViewModel : ViewModel() {
             exchangeRateInPtr = ptr.toString()
             )
 
-        operationResponse.postValue(dataToReport)
+        operationResponse.postValue(Result(false,dataToReport))
     }
 
     private fun convertInputToUsd(): Float {
@@ -183,6 +183,7 @@ class ConversorViewModel : ViewModel() {
     }
 
     data class UIState (val uiState : UIStateOption)
+    data class Result (val cache : Boolean , val data : ReportData?)
 
     enum class UIStateOption {
         EMPTY, WRONG_VALUE, CORRECT_VALUE

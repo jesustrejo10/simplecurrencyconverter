@@ -89,11 +89,21 @@ class LoginFragment : Fragment(), View.OnClickListener {
                     dialog.dismiss()
                 Toast.makeText(context,getString(R.string.success_login),Toast.LENGTH_LONG).show()
                 (activity as? NavigationContract)?.navigateTo(3,Bundle())
+                viewModel?.operationResultManager?.postValue(
+                    LoginViewModel.OperationResult(
+                        LoginViewModel.OperationResultStatus.CLEAR,
+                        null
+                    )
+                )
+
             }
             LoginViewModel.OperationResultStatus.LOGIN_ERROR-> {
 
                 if (dialog.isVisible)
                     dialog.dismiss()
+            }
+            else -> {
+                println("")
             }
         }
     }

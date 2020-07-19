@@ -18,7 +18,6 @@ class LoginViewModel : ViewModel() {
     val uiStatusManager = MutableLiveData<UIValidator>()
     val operationResultManager = MutableLiveData<OperationResult>()
     lateinit var preferenceManager: PreferenceManager
-    val scope = CoroutineScope(Dispatchers.IO)
 
 
     fun verifyScreen(email: String, password: String) {
@@ -54,11 +53,12 @@ class LoginViewModel : ViewModel() {
         preferenceManager.saveToken(data?.token!!)
 
         operationResultManager.postValue(OperationResult(OperationResultStatus.LOGIN_SUCCESS,null))
+
     }
 
     fun tryLogin(p0: UserServerModel) {
 
-        viewModelScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
 
             try {
                 val call1 = async { LoginApiHelper(RetrofitLoginBuilder.apiService).login(p0 )}
@@ -79,7 +79,7 @@ class LoginViewModel : ViewModel() {
     }
 
     enum class OperationResultStatus {
-        LOGIN_REQUESTED,LOGIN_SUCCESS, LOGIN_ERROR
+        LOGIN_REQUESTED,LOGIN_SUCCESS, LOGIN_ERROR,CLEAR
     }
 
     data class OperationResult(val status : OperationResultStatus, val any : Any? )
