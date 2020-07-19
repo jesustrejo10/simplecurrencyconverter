@@ -1,9 +1,8 @@
 package com.example.simplecurrencyconverter
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import com.example.core.common.navigation.NavigationContract
 import com.example.core.storage.PreferenceManager
