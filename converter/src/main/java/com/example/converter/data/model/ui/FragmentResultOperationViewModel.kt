@@ -20,4 +20,9 @@ class FragmentResultOperationViewModel : ViewModel() {
             null
         }
     }
+
+    fun generateQR() {
+
+
+    }
 }

@@ -12,7 +12,7 @@ import com.example.converter.R
 import com.example.converter.data.model.ReportData
 import kotlinx.android.synthetic.main.fragment_result_operation_fragment.*
 
-class FragmentResultOperation : Fragment() {
+class FragmentResultOperation : Fragment(), View.OnClickListener {
 
     companion object {
         fun newInstance() = FragmentResultOperation()
@@ -35,6 +35,8 @@ class FragmentResultOperation : Fragment() {
             //todo display error and finish
         }else{
             manageData(data)
+            restart.setOnClickListener(this)
+            generate_qr.setOnClickListener(this)
         }
     }
 
@@ -54,6 +56,19 @@ class FragmentResultOperation : Fragment() {
         ethExchangeRateValue.text = data.exchangeRateInEth
         ptrValue.text = data.valueInPtr
         ptrExchangeRateValue.text = data.exchangeRateInPtr
+
+    }
+
+    override fun onClick(view: View?) {
+        view?: return
+        when(view.id){
+            R.id.restart->{
+                activity?.onBackPressed()
+            }
+            R.id.generate_qr->{
+                viewModel.generateQR()
+            }
+        }
 
     }
 

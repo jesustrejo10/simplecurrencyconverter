@@ -16,6 +16,8 @@
     <string name="eth_entered_value">The equivalent in ETH is:</string>
     <string name="ptr_entered_value">The equivalent in PTR is:</string>
     <string name="exchange_rate_value">The exchange rate used was</string>
+    <string name="try_again">Convert again</string>
+    <string name="generate_qr">Show QR</string>
 
     <string-array name="supported_currencies">
         <item>United stated dollar (USD)</item>
