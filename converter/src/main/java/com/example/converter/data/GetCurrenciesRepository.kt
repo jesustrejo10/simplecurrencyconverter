@@ -1,6 +1,6 @@
 package com.example.converter.data
 
-class GetCurrenciesRepository (private val apiHelper : LoginCurrencyHelper){
+class GetCurrenciesRepository (private val apiHelper : CurrencyHelper){
 
-    suspend fun login() = apiHelper.getCurrencies()
+    suspend fun getCurrencies() = apiHelper.getCurrencies()
 }
