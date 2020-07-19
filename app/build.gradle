@@ -46,5 +46,6 @@ dependencies {
 
     implementation project(path: ':core')
     implementation project(path: ':login')
+    implementation project(path: ':converter')
 
 }

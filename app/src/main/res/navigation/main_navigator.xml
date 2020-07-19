@@ -10,6 +10,16 @@
         android:id="@+id/login_fragment"
         android:name="com.example.login.LoginFragment"
         android:label="@string/login_fragment">
+        <action
+            android:id="@+id/action_login_fragment_to_conversor_fragment"
+            app:destination="@id/conversor_fragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/conversor_fragment"
+        android:name="com.example.converter.ConversorFragment"
+        android:label="@string/conversor_fragment">
     </fragment>
 
 

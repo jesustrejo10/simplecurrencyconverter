@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(), NavigationContract {
         navController = findNavController(R.id.nav_host_fragment)
 
         if(PreferenceManager(this).checkIfUserAlreadyLoggedIn()){
-            //go to dashboard
+            navigateTo(1,Bundle())
         }else{
             //go to login
         }
@@ -31,10 +31,15 @@ class MainActivity : AppCompatActivity(), NavigationContract {
     override fun navigateTo(destination: Int, data: Bundle) {
         when(destination){
             1->{
-                //navController.navigate(1,data)
+                navController.navigate(R.id.action_login_fragment_to_conversor_fragment,data)
 
             }
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if(PreferenceManager(this).checkIfUserAlreadyLoggedIn())
+            finish()
+    }
 }
