@@ -5,12 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.core.common.LoadingDialogFragment
+import com.example.core.common.navigation.NavigationContract
 import com.example.core.data.Resource
 import com.example.core.data.Status
+import com.example.core.storage.PreferenceManager
 import com.example.login.LoginViewModel.UIValidator.*
 import com.example.login.data.ServerLoginResponseModel
 import com.example.login.data.UserServerModel
@@ -77,7 +80,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
                 dialog.show(parentFragmentManager, "loading")
 
                 val data = operationResult.any as? UserServerModel ?: run{
-                    displayGeneralError()
+                    displayGeneralError(null)
                     return
                 }
                 viewModel.login(data).observe(viewLifecycleOwner, Observer {
@@ -85,25 +88,35 @@ class LoginFragment : Fragment(), View.OnClickListener {
                 })
 
             }
+            LoginViewModel.OperationResultStatus.LOGIN_SUCCESS ->{
+                Toast.makeText(context,getString(R.string.success_login),Toast.LENGTH_LONG).show()
+                (activity as? NavigationContract)?.navigateTo(1,Bundle())
+            }
         }
     }
 
     private fun manageAPIResponse(it: Resource<ServerLoginResponseModel>) {
         when(it.status){
             Status.SUCCESS ->{
+                context?.let {context ->
+                    viewModel.successLogin(it.data, PreferenceManager(context))
+
+                }
                 if(dialog.isVisible)
                     dialog.dismiss()
             }
             Status.ERROR -> {
                 if(dialog.isVisible)
                     dialog.dismiss()
+                displayGeneralError(it.message)
             }
 
         }
 
     }
 
-    private fun displayGeneralError() {
+    private fun displayGeneralError(message: String?) {
+
 
 
     }

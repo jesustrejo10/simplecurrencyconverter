@@ -5,10 +5,11 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
+import com.example.core.common.navigation.NavigationContract
 import com.example.core.storage.PreferenceManager
 import com.facebook.stetho.Stetho
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationContract {
 
     private lateinit var navController: NavController
 
@@ -24,6 +25,15 @@ class MainActivity : AppCompatActivity() {
             //go to dashboard
         }else{
             //go to login
+        }
+    }
+
+    override fun navigateTo(destination: Int, data: Bundle) {
+        when(destination){
+            1->{
+                //navController.navigate(1,data)
+
+            }
         }
     }
 

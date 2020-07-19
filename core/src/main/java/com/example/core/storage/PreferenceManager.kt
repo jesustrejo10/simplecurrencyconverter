@@ -4,9 +4,9 @@ import android.content.Context
 import android.content.SharedPreferences
 
 const val USER_LOGGED_IN = "USER_LOGGED_IN"
-
+const val USER_TOKEN = "USER_TOKEN"
 class PreferenceManager(private val context: Context) {
-    val preferenceManager : SharedPreferences
+    private val preferenceManager : SharedPreferences
 
     init {
         val fileName = "key_sharedp"
@@ -14,10 +14,14 @@ class PreferenceManager(private val context: Context) {
     }
 
     fun checkIfUserAlreadyLoggedIn(): Boolean {
-
-        return preferenceManager.getBoolean(USER_LOGGED_IN,false)
-
-
+        return !preferenceManager.getString(USER_TOKEN,"").isNullOrEmpty()
     }
 
+    fun saveToken(token: String) {
+        preferenceManager.edit().putString((USER_TOKEN), token).apply()
+    }
+
+    fun removeUserToken() {
+        preferenceManager.edit().putString((USER_TOKEN), "").apply()
+    }
 }
