@@ -36,7 +36,8 @@
             android:layout_gravity="center_vertical"
             android:text="@string/email"
             android:labelFor="@id/email"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            />
 
 
         <EditText
@@ -44,7 +45,8 @@
             android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:importantForAutofill="yes" />
+            android:importantForAutofill="yes"
+            android:text = "eve.holt@reqres.in"/>
     </LinearLayout>
 
 
@@ -71,7 +73,8 @@
             android:id="@+id/password"
             android:layout_width="195dp"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:text = "cityslicka"/>
     </LinearLayout>
 
     <Button

@@ -3,6 +3,12 @@ package com.example.login
 import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import com.example.core.data.Resource
+import com.example.login.data.LoginApiHelper
+import com.example.login.data.RetrofitLoginBuilder
+import com.example.login.data.UserServerModel
+import kotlinx.coroutines.Dispatchers
 
 class LoginViewModel : ViewModel() {
 
@@ -24,16 +30,37 @@ class LoginViewModel : ViewModel() {
                 uiStatusManager.postValue(UIValidator.INVALID_EMAIL_LENGHT)
         }
         if(validEmail && validPassword){
-            operationResultManager.postValue(OperationResult.LOGIN_REQUESTED)
+            val hardCodedEmail = "eve.holt@reqres.in"
+            val hardCodedPassword = "cityslicka"
+            val serverUserModel = UserServerModel(hardCodedEmail,hardCodedPassword)
+            operationResultManager.postValue(OperationResult(OperationResultStatus.LOGIN_REQUESTED,serverUserModel))
         }
 
     }
+
+
+
+
+    fun login(serverUserModel: UserServerModel) = liveData(Dispatchers.IO) {
+
+        emit(Resource.loading(data = null))
+        try {
+            val apiResponse = LoginApiHelper(RetrofitLoginBuilder.apiService).login(serverUserModel)
+            emit(Resource.success(data =apiResponse ))
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
 
     enum class UIValidator {
         INVALID_EMAIL, INVALID_PASSWORD,INVALID_EMAIL_LENGHT
     }
 
-    enum class OperationResult {
+    enum class OperationResultStatus {
         LOGIN_REQUESTED
     }
+
+    data class OperationResult(val status : OperationResultStatus, val any : Any? )
+
 }

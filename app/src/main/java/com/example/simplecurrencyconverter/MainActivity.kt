@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import com.example.core.storage.PreferenceManager
+import com.facebook.stetho.Stetho
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Stetho.initializeWithDefaults(this)
 
         navController = findNavController(R.id.nav_host_fragment)
 

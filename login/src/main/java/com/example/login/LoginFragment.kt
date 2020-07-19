@@ -5,15 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.core.common.LoadingDialogFragment
+import com.example.core.data.Resource
+import com.example.core.data.Status
 import com.example.login.LoginViewModel.UIValidator.*
+import com.example.login.data.ServerLoginResponseModel
+import com.example.login.data.UserServerModel
 import kotlinx.android.synthetic.main.login_fragment.*
 
 
 class LoginFragment : Fragment(), View.OnClickListener {
 
     private lateinit var viewModel: LoginViewModel
+    val dialog: DialogFragment = LoadingDialogFragment()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +40,8 @@ class LoginFragment : Fragment(), View.OnClickListener {
         viewModel.uiStatusManager.observe(viewLifecycleOwner, Observer {
             manageUIStatus(it)
         })
+
+
     }
 
     private fun manageUIStatus(uiStatus: LoginViewModel.UIValidator?) {
@@ -62,6 +71,39 @@ class LoginFragment : Fragment(), View.OnClickListener {
     }
 
     private fun manageOperationResult(operationResult: LoginViewModel.OperationResult?) {
+        operationResult?:return
+        when(operationResult.status){
+            LoginViewModel.OperationResultStatus.LOGIN_REQUESTED ->{
+                dialog.show(parentFragmentManager, "loading")
+
+                val data = operationResult.any as? UserServerModel ?: run{
+                    displayGeneralError()
+                    return
+                }
+                viewModel.login(data).observe(viewLifecycleOwner, Observer {
+                    manageAPIResponse(it)
+                })
+
+            }
+        }
+    }
+
+    private fun manageAPIResponse(it: Resource<ServerLoginResponseModel>) {
+        when(it.status){
+            Status.SUCCESS ->{
+                if(dialog.isVisible)
+                    dialog.dismiss()
+            }
+            Status.ERROR -> {
+                if(dialog.isVisible)
+                    dialog.dismiss()
+            }
+
+        }
+
+    }
+
+    private fun displayGeneralError() {
 
 
     }
