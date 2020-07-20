@@ -1,9 +1,5 @@
 package com.example.converter.data.model.ui
 
-import android.R.attr.bitmap
-import android.graphics.Color
-import androidmads.library.qrgenearator.QRGContents
-import androidmads.library.qrgenearator.QRGEncoder
 import androidx.lifecycle.ViewModel
 import com.example.converter.data.model.ReportData
 import com.google.gson.Gson

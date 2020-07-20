@@ -82,7 +82,8 @@ class LoginFragment : Fragment(), View.OnClickListener {
         operationResult?:return
         when(operationResult.status){
             LoginViewModel.OperationResultStatus.LOGIN_REQUESTED ->{
-                dialog.show(parentFragmentManager, "loading")
+                if(!dialog.isVisible)
+                    dialog.show(parentFragmentManager, "loading")
             }
             LoginViewModel.OperationResultStatus.LOGIN_SUCCESS ->{
                 if (dialog.isVisible)
@@ -98,12 +99,15 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
             }
             LoginViewModel.OperationResultStatus.LOGIN_ERROR-> {
-
-                if (dialog.isVisible)
                     dialog.dismiss()
+                (operationResult.any as? String) ?. let{
+                    displayGeneralError(it)
+                }
+
+
             }
             else -> {
-                println("")
+                    dialog.dismiss()
             }
         }
     }
@@ -111,6 +115,6 @@ class LoginFragment : Fragment(), View.OnClickListener {
     private fun displayGeneralError(message: String?) {
 
         Toast.makeText(activity,message,Toast.LENGTH_LONG).show()
-
+            dialog.dismiss()
     }
 }

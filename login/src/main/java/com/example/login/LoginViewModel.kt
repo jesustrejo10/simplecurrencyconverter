@@ -12,6 +12,7 @@ import com.example.login.data.RetrofitLoginBuilder
 import com.example.login.data.ServerLoginResponseModel
 import com.example.login.data.UserServerModel
 import kotlinx.coroutines.*
+import java.net.UnknownHostException
 
 class LoginViewModel : ViewModel() {
 
@@ -59,16 +60,26 @@ class LoginViewModel : ViewModel() {
     fun tryLogin(p0: UserServerModel) {
 
         CoroutineScope(Dispatchers.IO).launch {
+            supervisorScope {
+                try {
+                    val call1 = async { LoginApiHelper(RetrofitLoginBuilder.apiService).login(p0) }
+                    val apiResponse = call1.await()
+                    successLogin(apiResponse)
 
-            try {
-                val call1 = async { LoginApiHelper(RetrofitLoginBuilder.apiService).login(p0 )}
-                val apiResponse = call1.await()
-                successLogin(apiResponse)
-
-            } catch (exception: Exception) {
-                println("")
-                operationResultManager.postValue(OperationResult(OperationResultStatus.LOGIN_ERROR,exception.message))
-
+                } catch (exception: Exception) {
+                    if(exception is UnknownHostException){
+                        operationResultManager.postValue( OperationResult(
+                            OperationResultStatus.LOGIN_ERROR,"There is no internet connection available, please try again later."
+                        ))
+                    }else {
+                        operationResultManager.postValue(
+                            OperationResult(
+                                OperationResultStatus.LOGIN_ERROR,
+                                exception.message
+                            )
+                        )
+                    }
+                }
             }
         }
     }
