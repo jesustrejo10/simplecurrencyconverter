@@ -9,6 +9,7 @@ import com.example.converter.data.model.Cripto
 import com.example.converter.data.model.ReportData
 import com.example.core.data.Resource
 import kotlinx.coroutines.Dispatchers
+import java.net.UnknownHostException
 
 class ConversorViewModel : ViewModel() {
 
@@ -63,7 +64,10 @@ class ConversorViewModel : ViewModel() {
             val apiResponse = CurrencyHelper(RetrofitCurrencyBuilder.apiService).getCurrencies()
             emit(Resource.success(data =apiResponse.criptoList ))
         } catch (exception: Exception) {
-            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+            if(exception is UnknownHostException){
+                emit(Resource.error(data = null, message = "There is no internet connection available, please try again later." ?: "Error Occurred!"))
+            }else
+                emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
         }
     }
 

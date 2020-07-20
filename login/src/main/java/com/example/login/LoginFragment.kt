@@ -99,7 +99,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
             }
             LoginViewModel.OperationResultStatus.LOGIN_ERROR-> {
-                    dialog.dismiss()
+                dialog.dismiss()
                 (operationResult.any as? String) ?. let{
                     displayGeneralError(it)
                 }

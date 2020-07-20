@@ -100,8 +100,7 @@ class ConversorFragment : Fragment(), AdapterView.OnItemClickListener,
                 }
             }
             Status.ERROR -> {
-                if(dialog.isVisible)
-                    dialog.dismiss()
+                dialog.dismiss()
                 displayGeneralError(it.message)
             }
 
