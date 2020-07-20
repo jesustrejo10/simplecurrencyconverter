@@ -38,6 +38,7 @@ class ConversorFragment : Fragment(), AdapterView.OnItemClickListener,
 
         manageViewComponents()
 
+        (activity as? NavigationContract)?.updateScreen("converter")
     }
 
     private fun manageViewComponents() {

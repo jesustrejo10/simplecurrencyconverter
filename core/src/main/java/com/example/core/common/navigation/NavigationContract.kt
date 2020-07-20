@@ -5,6 +5,7 @@ import android.os.Bundle
 interface NavigationContract {
 
     fun navigateTo(destination : Int, data : Bundle)
+    fun updateScreen(screen: String)
 
 
 }
