@@ -45,8 +45,7 @@
             android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:importantForAutofill="yes"
-            android:text = "eve.holt@reqres.in"/>
+            android:importantForAutofill="yes" />
     </LinearLayout>
 
 
@@ -73,8 +72,7 @@
             android:id="@+id/password"
             android:layout_width="195dp"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:text = "cityslicka"/>
+            android:inputType="textPassword"/>
     </LinearLayout>
 
     <Button
