@@ -8,6 +8,7 @@ import com.example.converter.data.RetrofitCurrencyBuilder
 import com.example.converter.data.model.Cripto
 import com.example.converter.data.model.ReportData
 import com.example.core.data.Resource
+import com.example.core.storage.PreferenceManager
 import kotlinx.coroutines.Dispatchers
 import java.net.UnknownHostException
 
@@ -184,6 +185,10 @@ class ConversorViewModel : ViewModel() {
         }
 
         return currentFloatVal
+    }
+
+    fun clearData(preferenceManager: PreferenceManager) {
+        preferenceManager.removeUserToken()
     }
 
     data class UIState (val uiState : UIStateOption)

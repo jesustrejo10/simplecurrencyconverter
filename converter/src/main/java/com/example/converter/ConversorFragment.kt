@@ -1,5 +1,7 @@
 package com.example.converter
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +17,7 @@ import com.example.core.common.LoadingDialogFragment
 import com.example.core.common.navigation.NavigationContract
 import com.example.core.data.Resource
 import com.example.core.data.Status
+import com.example.core.storage.PreferenceManager
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.conversor_fragment.*
 
@@ -45,7 +48,7 @@ class ConversorFragment : Fragment(), AdapterView.OnItemClickListener,
 
         currencySpinner.onItemSelectedListener= this
         convert_action.setOnClickListener(this)
-
+        logout.setOnClickListener(this)
         viewModel.uiStateManager.observe(viewLifecycleOwner, Observer {
             manageUIStatus(it)
         })
@@ -128,6 +131,33 @@ class ConversorFragment : Fragment(), AdapterView.OnItemClickListener,
         if(v.id == R.id.convert_action){
             cache = false
             viewModel.verifyUi(currencyValue.text.toString())
+        }
+        if(v.id == R.id.logout){
+            val dialogBuilder = AlertDialog.Builder(requireContext())
+
+            // set message of alert dialog
+            dialogBuilder.setMessage("Do you want to logout and close the application?")
+                // if the dialog is cancelable
+                .setCancelable(false)
+                // positive button text and action
+                .setPositiveButton("Proceed") { _, _ ->
+                    run {
+                        viewModel.clearData(PreferenceManager(requireContext()))
+                        activity?.onBackPressed()
+                        //(activity as? NavigationContract)?.updateScreen("login")
+                    }
+                }
+
+                .setNegativeButton("Cancel", DialogInterface.OnClickListener {
+                        dialog, id -> dialog.cancel()
+                })
+
+            // create dialog box
+            val alert = dialogBuilder.create()
+            // set title for alert dialog box
+            alert.setTitle("AlertDialogExample")
+            // show alert dialog
+            alert.show()
         }
     }
     companion object{
