@@ -95,19 +95,49 @@ class ConversorFragment : Fragment(), AdapterView.OnItemClickListener,
     }
 
     private fun manageAPIResponse(it: Resource<List<Cripto>>?) {
-        when(it?.status){
-            Status.SUCCESS ->{
-                if(dialog.isVisible)
-                    dialog.dismiss()
-                context?.let {context ->
-                    viewModel.successRetrievedCurrencies(it.data)
-                }
-            }
-            Status.ERROR -> {
-                dialog.dismiss()
-                displayGeneralError(it.message)
-            }
+        if(it?.status != Status.LOADING )
+            dialog.dismiss()
 
+        if(!cache)
+            when(it?.status){
+                Status.SUCCESS ->{
+                    if(dialog.isVisible)
+                        dialog.dismiss()
+                    context?.let {context ->
+                        viewModel.successRetrievedCurrencies(it.data)
+                    }
+                }
+                Status.ERROR -> {
+                    dialog.dismiss()
+
+                    val dialogBuilder = AlertDialog.Builder(requireContext())
+
+                    // set message of alert dialog
+                    dialogBuilder.setMessage("API isn't responding, would you like to see the result with hardcoded values?")
+                        // if the dialog is cancelable
+                        .setCancelable(false)
+                        // positive button text and action
+                        .setPositiveButton("See results") { _, _ ->
+                            run {
+                                viewModel.successRetrievedCurrencies(null)
+                                dialog.dismiss()
+                            }
+                        }
+
+                        .setNegativeButton("Cancel", DialogInterface.OnClickListener {
+                                dialog, id -> dialog.cancel()
+                        })
+
+                    // create dialog box
+                    val alert = dialogBuilder.create()
+                    // set title for alert dialog box
+                    alert.setTitle("Unresponsive API")
+                    // show alert dialog
+                    alert.show()
+
+                    displayGeneralError(it.message)
+
+                }
         }
     }
 
